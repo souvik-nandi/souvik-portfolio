@@ -1,0 +1,117 @@
+@use "sass:math";
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+
+  &--left {
+    .signature-logo {
+      width: 300px;
+      visibility: hidden;
+      margin-left: -55px;
+      margin-top: 5px;
+    }
+  }
+
+  &--right {
+    ul.nav-links {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      li {
+        color: #fff;
+        margin: 0 15px;
+        padding: 5px 15px;
+        font-size: 16px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0;
+        margin-top: -200px;
+        animation: backInDown 2s 1 forwards;
+        -moz-animation: backInDown 2s 1 forwards;
+        -webkit-animation: backInDown 2s 1 forwards;
+        -o-animation: backInDown 2s 1 forwards;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 1);
+          color: #000;
+        }
+      }
+
+      li.active {
+        color: #0170b1;
+        background-color: #fff;
+      }
+
+      $elements: 5;
+      @for $i from 0 to $elements {
+        li:nth-child(#{$i + 1}) {
+          animation-delay: #{4.5 + math.div($i, 5)}s;
+        }
+      }
+    }
+
+    ul.nav-links.animation-disabled {
+      li {
+        animation: none;
+        -moz-animation: none;
+        -webkit-animation: none;
+        -o-animation: none;
+        animation-delay: 0;
+        margin-top: 0px;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.slider {
+  height: 2px;
+  width: 0;
+  background-color: #fff;
+  animation: growLeftToRight 1s 1 forwards;
+  -moz-animation: growLeftToRight 1s 1 forwards;
+  -webkit-animation: growLeftToRight 1s 1 forwards;
+  -o-animation: growLeftToRight 1s 1 forwards;
+  animation-delay: 4.5s;
+}
+
+.slider.animation-disabled {
+  animation: none;
+  -moz-animation: none;
+  -webkit-animation: none;
+  -o-animation: none;
+  animation-delay: 0;
+  width: 100%;
+}
+
+@keyframes growLeftToRight {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes backInDown {
+  0% {
+    margin-top: -200px;
+    opacity: 0;
+  }
+
+  50% {
+    margin-top: 20px;
+    opacity: 1;
+  }
+
+  100% {
+    margin-top: 0px;
+    opacity: 1;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Input } from "@angular/core";
 
 @Component({
   selector: "app-signature-loader",
@@ -6,6 +6,8 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from "@angula
   styleUrls: ["./signature-loader.component.scss"],
 })
 export class SignatureLoaderComponent implements OnInit, AfterViewInit {
+  @Input() disableAnimation = false;
+
   constructor() {}
 
   @ViewChild("signatureContainer") signatureContainer: ElementRef;
@@ -26,7 +28,7 @@ export class SignatureLoaderComponent implements OnInit, AfterViewInit {
         path.style.transition = "none";
         path.style.strokeDasharray = length + " " + length;
         path.style.strokeDashoffset = length.toString();
-        path.style.stroke = "rgb(0,0,0)";
+        path.style.stroke = "rgb(255,255,255)";
         path.getBoundingClientRect();
         path.style.transition = animation;
         path.style.strokeDashoffset = "0";
@@ -34,16 +36,21 @@ export class SignatureLoaderComponent implements OnInit, AfterViewInit {
 
       let counter = 0;
 
-      paths.forEach((path) => {
-        let length = path.getTotalLength();
-        let delayTimeInMS = 3 * length;
+      setTimeout(
+        () => {
+          paths.forEach((path) => {
+            let length = path.getTotalLength();
+            let delayTimeInMS = this.disableAnimation ? 0 : 3 * length;
 
-        setTimeout(() => {
-          animatePath(path, `stroke-dashoffset ${delayTimeInMS / 1000}s ease-in-out`, length);
-        }, counter);
+            setTimeout(() => {
+              animatePath(path, `stroke-dashoffset ${delayTimeInMS / 1000}s ease-in-out`, length);
+            }, counter);
 
-        counter += delayTimeInMS;
-      });
+            counter += delayTimeInMS;
+          });
+        },
+        this.disableAnimation ? 0 : 500,
+      );
     }
   }
 }

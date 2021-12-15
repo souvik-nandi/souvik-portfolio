@@ -1,5 +1,9 @@
 <div class="souvik-portfolio-container">
-  <div class="loader">
-    <app-signature-loader></app-signature-loader>
+  <div class="header">
+    <app-navigation [disableAnimation]="!!isPageSelected"></app-navigation>
   </div>
+  <div id="signature-loader" class="loader" [ngClass]="{ 'animation-disabled': !!isPageSelected }">
+    <app-signature-loader [disableAnimation]="!!isPageSelected"></app-signature-loader>
+  </div>
+  <router-outlet></router-outlet>
 </div>
