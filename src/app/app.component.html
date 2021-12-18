@@ -5,5 +5,13 @@
   <div id="signature-loader" class="loader" [ngClass]="{ 'animation-disabled': !!isPageSelected }">
     <app-signature-loader [disableAnimation]="!!isPageSelected"></app-signature-loader>
   </div>
-  <router-outlet></router-outlet>
+  <main class="main-container">
+    <ng-container *ngIf="!isPageSelected && showLandingPage; else routerOutletContainer">
+      <app-landing-page></app-landing-page>
+    </ng-container>
+  </main>
 </div>
+
+<ng-template #routerOutletContainer>
+  <router-outlet></router-outlet>
+</ng-template>

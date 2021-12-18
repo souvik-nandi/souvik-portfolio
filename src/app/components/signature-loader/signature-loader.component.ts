@@ -1,4 +1,6 @@
+import { Router } from "@angular/router";
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Input } from "@angular/core";
+import { AppService } from "src/app/services/app.service";
 
 @Component({
   selector: "app-signature-loader",
@@ -8,7 +10,7 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Input } from "
 export class SignatureLoaderComponent implements OnInit, AfterViewInit {
   @Input() disableAnimation = false;
 
-  constructor() {}
+  constructor(private _router: Router, private _appService: AppService) {}
 
   @ViewChild("signatureContainer") signatureContainer: ElementRef;
 
@@ -18,6 +20,17 @@ export class SignatureLoaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.startLoadingAnimation(this.signatureContainer?.nativeElement);
+  }
+
+  redirectToLandingPage(): void {
+    this._router.navigate([""]);
+
+    setTimeout(() => {
+      this._appService.isPageSelected = false;
+      setTimeout(() => {
+        this._appService.showLandingPage = true;
+      }, 6700);
+    }, 100);
   }
 
   startLoadingAnimation(domElement: any) {
