@@ -18,11 +18,12 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log("aaff");
     this.init();
   }
 
   ngOnChanges(): void {
-    console.log("ffa");
+    console.log("ffaa");
     this.init();
   }
 
