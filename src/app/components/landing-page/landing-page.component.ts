@@ -42,7 +42,7 @@ export class LandingPageComponent implements OnInit, OnChanges {
         this.aboutMeDesc.nativeElement.value = items[itemIdx].slice(0, itemCharPos);
 
         if (itemCharPos > items[itemIdx].length) {
-          wait(1500);
+          wait(1000);
           deleteFlag = true;
         }
         itemCharPos += deleteFlag ? -1 : 1;
